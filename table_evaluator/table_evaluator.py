@@ -588,7 +588,7 @@ class TableEvaluator:
         correlation_correlation = self.correlation_correlation()
         column_correlation = self.column_correlations()
         estimators = self.estimator_evaluation(target_col=target_col, target_type=target_type)
-        pca_variance = self.pca_correlation()
+        #pca_variance = self.pca_correlation()
         nearest_neighbor = self.row_distance(n_samples=n_samples_distance)
 
         miscellaneous = {}
