@@ -145,18 +145,18 @@ class TableEvaluator:
             if col not in self.categorical_columns:
                 try:
                     sns.distplot(self.real[col], ax=axes[i], label='Real')
-                    sns.distplot(self.fake[col], ax=axes[i], color='darkorange', label='Fake')
+                    sns.distplot(self.fake[col], ax=axes[i], color='darkorange', label='Synthetic')
                 except RuntimeError:
                     axes[i].clear()
                     sns.distplot(self.real[col], ax=axes[i], label='Real', kde=False)
-                    sns.distplot(self.fake[col], ax=axes[i], color='darkorange', label='Fake', kde=False)
+                    sns.distplot(self.fake[col], ax=axes[i], color='darkorange', label='Synthetic', kde=False)
                 axes[i].set_autoscaley_on(True)
                 axes[i].legend()
             else:
                 real = self.real.copy()
                 fake = self.fake.copy()
                 real['kind'] = 'Real'
-                fake['kind'] = 'Fake'
+                fake['kind'] = 'Synthetic'
                 concat = pd.concat([fake, real])
                 palette = sns.color_palette(
                     [(0.8666666666666667, 0.5176470588235295, 0.3215686274509804),
@@ -229,7 +229,7 @@ class TableEvaluator:
         sns.scatterplot(ax=ax[0], x=real_t[:, 0], y=real_t[:, 1])
         sns.scatterplot(ax=ax[1], x=fake_t[:, 0], y=fake_t[:, 1])
         ax[0].set_title('Real data')
-        ax[1].set_title('Fake data')
+        ax[1].set_title('Synthetic data')
         plt.show()
 
     def get_copies(self, return_len: bool = False) -> Union[pd.DataFrame, int]:
