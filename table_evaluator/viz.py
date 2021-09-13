@@ -77,7 +77,7 @@ def plot_correlation_difference(real: pd.DataFrame, fake: pd.DataFrame, plot_dif
         sns.heatmap(diff, ax=ax[2], cmap=cmap, vmax=.3, square=True, annot=annot, center=0,
                     linewidths=.5, cbar_kws={"shrink": .5}, fmt='.2f')
 
-    titles = ['Real', 'Fake', 'Difference'] if plot_diff else ['Real', 'Fake']
+    titles = ['Real', 'Synthetic', 'Difference'] if plot_diff else ['Real', 'Synthetic']
     for i, label in enumerate(titles):
         title_font = {'size': '18'}
         ax[i].set_title(label, **title_font)
@@ -152,7 +152,7 @@ def cdf(data_r, data_f, xlabel: str = 'Values', ylabel: str = 'Cumulative Sum', 
 
     ax.grid()
     ax.plot(x1, y, marker='o', linestyle='none', label='Real', ms=8)
-    ax.plot(x2, y, marker='o', linestyle='none', label='Fake', alpha=0.5)
+    ax.plot(x2, y, marker='o', linestyle='none', label='Synthetic', alpha=0.5)
     ax.tick_params(axis='both', which='major', labelsize=8)
     ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=3)
 
@@ -208,9 +208,9 @@ def plot_mean_std(real: pd.DataFrame, fake: pd.DataFrame, ax=None):
     sns.scatterplot(x=real_mean,
                     y=fake_mean,
                     ax=ax[0])
-    ax[0].set_title('Means of real and fake data')
+    ax[0].set_title('Means of real and synthetic data')
     ax[0].set_xlabel('real data mean (log)')
-    ax[0].set_ylabel('fake data mean (log)')
+    ax[0].set_ylabel('synthetic data mean (log)')
 
     real_std = np.log(np.add(real.std().values, 1e-5))
     fake_std = np.log(np.add(fake.std().values, 1e-5))
@@ -221,9 +221,9 @@ def plot_mean_std(real: pd.DataFrame, fake: pd.DataFrame, ax=None):
     sns.scatterplot(x=real_std,
                     y=fake_std,
                     ax=ax[1])
-    ax[1].set_title('Stds of real and fake data')
+    ax[1].set_title('Stds of real and synthetic data')
     ax[1].set_xlabel('real data std (log)')
-    ax[1].set_ylabel('fake data std (log)')
+    ax[1].set_ylabel('synthetic data std (log)')
 
     if ax is None:
         plt.show()
